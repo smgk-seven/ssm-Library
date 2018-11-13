@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smgk.library.dao.LeadMapper">
+  <resultMap id="BaseResultMap" type="com.smgk.library.bean.Lead">
+    <id column="lend_id" jdbcType="INTEGER" property="lendId" />
+    <result column="lend_num" jdbcType="INTEGER" property="lendNum" />
+    <result column="lend_time" jdbcType="TIMESTAMP" property="lendTime" />
+    <result column=" lend_status" jdbcType="CHAR" property="lendStatus" />
+    <result column="lend_stu" jdbcType="INTEGER" property="lendStu" />
+    <result column="lend_book" jdbcType="INTEGER" property="lendBook" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    lend_id, lend_num, lend_time, " lend_status", lend_stu, lend_book
+  </sql>
+  <select id="selectByExample" parameterType="com.smgk.library.bean.LeadExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_lend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_lend
+    where lend_id = #{lendId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_lend
+    where lend_id = #{lendId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.smgk.library.bean.LeadExample">
+    delete from tbl_lend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.smgk.library.bean.Lead">
+    insert into tbl_lend (lend_id, lend_num, lend_time, 
+      " lend_status", lend_stu, lend_book
+      )
+    values (#{lendId,jdbcType=INTEGER}, #{lendNum,jdbcType=INTEGER}, #{lendTime,jdbcType=TIMESTAMP}, 
+      #{lendStatus,jdbcType=CHAR}, #{lendStu,jdbcType=INTEGER}, #{lendBook,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.smgk.library.bean.Lead">
+    insert into tbl_lend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lendId != null">
+        lend_id,
+      </if>
+      <if test="lendNum != null">
+        lend_num,
+      </if>
+      <if test="lendTime != null">
+        lend_time,
+      </if>
+      <if test="lendStatus != null">
+        " lend_status",
+      </if>
+      <if test="lendStu != null">
+        lend_stu,
+      </if>
+      <if test="lendBook != null">
+        lend_book,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lendId != null">
+        #{lendId,jdbcType=INTEGER},
+      </if>
+      <if test="lendNum != null">
+        #{lendNum,jdbcType=INTEGER},
+      </if>
+      <if test="lendTime != null">
+        #{lendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lendStatus != null">
+        #{lendStatus,jdbcType=CHAR},
+      </if>
+      <if test="lendStu != null">
+        #{lendStu,jdbcType=INTEGER},
+      </if>
+      <if test="lendBook != null">
+        #{lendBook,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.smgk.library.bean.LeadExample" resultType="java.lang.Long">
+    select count(*) from tbl_lend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_lend
+    <set>
+      <if test="record.lendId != null">
+        lend_id = #{record.lendId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lendNum != null">
+        lend_num = #{record.lendNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.lendTime != null">
+        lend_time = #{record.lendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lendStatus != null">
+        " lend_status" = #{record.lendStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.lendStu != null">
+        lend_stu = #{record.lendStu,jdbcType=INTEGER},
+      </if>
+      <if test="record.lendBook != null">
+        lend_book = #{record.lendBook,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_lend
+    set lend_id = #{record.lendId,jdbcType=INTEGER},
+      lend_num = #{record.lendNum,jdbcType=INTEGER},
+      lend_time = #{record.lendTime,jdbcType=TIMESTAMP},
+      " lend_status" = #{record.lendStatus,jdbcType=CHAR},
+      lend_stu = #{record.lendStu,jdbcType=INTEGER},
+      lend_book = #{record.lendBook,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smgk.library.bean.Lead">
+    update tbl_lend
+    <set>
+      <if test="lendNum != null">
+        lend_num = #{lendNum,jdbcType=INTEGER},
+      </if>
+      <if test="lendTime != null">
+        lend_time = #{lendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lendStatus != null">
+        " lend_status" = #{lendStatus,jdbcType=CHAR},
+      </if>
+      <if test="lendStu != null">
+        lend_stu = #{lendStu,jdbcType=INTEGER},
+      </if>
+      <if test="lendBook != null">
+        lend_book = #{lendBook,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lend_id = #{lendId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smgk.library.bean.Lead">
+    update tbl_lend
+    set lend_num = #{lendNum,jdbcType=INTEGER},
+      lend_time = #{lendTime,jdbcType=TIMESTAMP},
+      " lend_status" = #{lendStatus,jdbcType=CHAR},
+      lend_stu = #{lendStu,jdbcType=INTEGER},
+      lend_book = #{lendBook,jdbcType=INTEGER}
+    where lend_id = #{lendId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 
+  		//查出所有借书记录，借书记录有  书名 学生信息的
+    	List<Lead> getAllLeadBookStuInfo();
+   -->
+  <resultMap type="com.smgk.library.bean.Lead" id="getAllLeadBookStuInfoMap">
+  	<id column="lend_id" jdbcType="INTEGER" property="lendId" />
+    <result column="lend_num" jdbcType="INTEGER" property="lendNum" />
+    <result column="lend_time" jdbcType="TIMESTAMP" property="lendTime" />
+    <result column=" lend_status" jdbcType="CHAR" property="lendStatus" />
+    <result column="lend_stu" jdbcType="INTEGER" property="lendStu" />
+    <result column="lend_book" jdbcType="INTEGER" property="lendBook" />
+    <association property="student" column="lend_stu" select="com.smgk.library.dao.StudentMapper.selectByPrimaryKey">
+    	<id column="stu_id" jdbcType="INTEGER" property="stuId" />
+	    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+	    <result column="stu_sex" jdbcType="CHAR" property="stuSex" />
+	    <result column="stu_email" jdbcType="VARCHAR" property="stuEmail" />
+	    <result column="stu_status" jdbcType="CHAR" property="stuStatus" />
+	    <result column="stu_card" jdbcType="VARCHAR" property="stuCard" />
+	    <result column="stu_pwd" jdbcType="VARCHAR" property="stuPwd" />
+    </association>
+    <association property="book" select="com.smgk.library.dao.BookMapper.selectByPrimaryKey" column="lend_book">
+    	<id column="book_id" jdbcType="INTEGER" property="bookId" />
+	    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+	    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+	    <result column="book_photo" jdbcType="VARCHAR" property="bookPhoto" />
+	    <result column="book_author" jdbcType="VARCHAR" property="bookAuthor" />
+	    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+	    <result column="count" jdbcType="INTEGER" property="count" />
+	    <result column="book_genre" jdbcType="INTEGER" property="bookGenre" />
+    </association>
+  </resultMap>
+  <select id="getAllLeadBookStuInfo" resultMap="getAllLeadBookStuInfoMap">
+  	select * from tbl_lend
+  </select>
+  
+  
+
+</mapper>
