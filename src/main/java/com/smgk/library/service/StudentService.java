@@ -26,4 +26,10 @@ public class StudentService {
 	public Student getStuLeadBookByStuId(Integer stuId){
 		return studentMapper.getStuLeadBookByStuId(stuId);
 	}
+
+	public Student getStu(Integer stuId) {
+		return studentMapper.selectByPrimaryKey(stuId);
+		
+	}
+	
 }

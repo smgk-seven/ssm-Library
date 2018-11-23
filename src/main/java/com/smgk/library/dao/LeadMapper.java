@@ -28,8 +28,12 @@ public interface LeadMapper {
 
     int updateByPrimaryKey(Lead record);
     
-    //查出所有借书记录，借书记录有  书名 学生信息的
+  //查出所有借书记录，借书记录有  书名 学生信息的
     List<Lead> getAllLeadBookStuInfo();
     //根据学生id  查出 学生借书的记录
     List<Lead> getAllLeadBookStuInfoByStuId(Integer stuId);
+    //还书
+    void resultBook(@Param("leadId") Integer leadId,@Param("LeadStatus")String LeadStatus);
+
+
 }

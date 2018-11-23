@@ -283,5 +283,10 @@
   <select id="getStuLeadBookByStuId" resultMap="getStuLeadBookByStuIdMap">
     	select * from tbl_book b,tbl_student s,tbl_lend l where b.book_id=l.lend_book and l.lend_stu=s.stu_id and s.stu_id=#{stuId}
   </select>
+  <!-- List<Student> getAllStuNoPwdd(); -->
+  <select id="getAllStuNoPwdd" resultType="com.smgk.library.bean.Student">
+  	select s.stu_id,s.stu_name,s.stu_sex,s.stu_status from tbl_student s
+  </select>
+  
   
 </mapper>

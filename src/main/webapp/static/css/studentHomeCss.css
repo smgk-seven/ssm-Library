@@ -1,0 +1,133 @@
+*{
+	padding:0;
+	margin:0;
+}
+.big{
+	width:1000px;
+	height:100%;
+	border:1px solid red;
+}
+.left{
+	width:200px;
+	height:100%;
+	border:1px solid black;
+	float: left;
+	background-color: rgba(51,50,50,0.9)
+}
+.left_top{
+	height:150px;
+	width: 150px;
+	border:1px solid red;
+	border-radius: 50%;
+	background-image: url(../images/touxiang.jpg);
+	background-size: 150px 150px;
+	margin: 30px auto;
+}
+.left_bottom ul li{
+	list-style: none;
+	height:35px;
+	
+	font-size: 19px;
+	
+	text-align: center;;
+	line-height: 30px;
+	border: 1px solid rgba(200,200,200,0.3);
+	transition: all 0.5s;
+	
+}
+.left_bottom ul li:hover{
+	background: rgba(150,150,150,0.8);			
+}
+.left_bottom{
+	height: 400px;
+	width:100px;
+	margin: 2 auto;
+}
+a{
+	color: white;
+	text-decoration: none;
+}
+.right{
+	width:790px;
+	height:100%;
+	float: right;
+}
+.right_info{
+	height:40px;
+	background:rgb(240,240,240);
+	line-height: 40px;
+	border-radius: 5px;
+}
+.right_info .info{
+	width:200px;
+    float: left;
+    margin-left:20px;
+}
+.right_info .name{
+	width:200px;
+    float: right;
+}
+.right_base_info{
+	margin-top:27px;
+	width:790px;
+	height:100px;
+	/* line-height: 60px; */
+	border: 1px solid rgba(70,70,70,0.2);
+	border-radius: 20px;
+	
+}
+.right_base_info ul li{
+	width: 100px;
+	height:100px;
+	list-style: none;
+	float: left;
+	margin-left:75px;
+	text-align: center;
+	font-size: 18px;
+	color: rgba(70,70,70,0.7);
+	
+}
+.right_base_info ul li span{
+	font-size: 50px;
+	color: black;
+}
+.right_user_info{
+	width: 790px;
+	height: 150px;
+	margin-top: 30px;
+	background: rgba(200,200,200,0.3);
+	border-radius: 20px;
+	padding: 10px;
+}
+.right_user_BorrBook{
+	width: 790px;
+	margin-top: 30px;
+	margin-top: 25px;
+	background: rgba(200,200,200,0.3);
+	border-radius: 20px;
+	padding: 15px;
+}
+.huanshu{
+	color: white;
+	text-align: center;
+	width: 55px;
+	height: 38px;
+	border: 1px solid rgba(220,220,220,0.8);
+	line-height:35px;
+	border-radius: 5px;
+	background: rgba(38,148,243,0.7);
+}
+
+.huanshuBt{
+			width:55px;
+			height:27px;
+			background:rgba(0,153,120,0.5);
+			border-radius: 5px;
+			text-align: center;
+			cursor:pointer 
+		}
+
+
+
+
+

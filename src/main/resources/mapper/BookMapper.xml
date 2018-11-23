@@ -103,7 +103,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.smgk.library.bean.Book">
-    insert into tbl_book (book_id, "book_name", book_desc, 
+    insert into tbl_book (book_id, book_name, book_desc, 
       book_photo, book_author, book_time, 
       count, book_genre)
     values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookDesc,jdbcType=VARCHAR}, 
@@ -117,7 +117,7 @@
         book_id,
       </if>
       <if test="bookName != null">
-        "book_name",
+        book_name,
       </if>
       <if test="bookDesc != null">
         book_desc,
@@ -178,7 +178,7 @@
         book_id = #{record.bookId,jdbcType=INTEGER},
       </if>
       <if test="record.bookName != null">
-        "book_name" = #{record.bookName,jdbcType=VARCHAR},
+        book_name = #{record.bookName,jdbcType=VARCHAR},
       </if>
       <if test="record.bookDesc != null">
         book_desc = #{record.bookDesc,jdbcType=VARCHAR},
@@ -206,7 +206,7 @@
   <update id="updateByExample" parameterType="map">
     update tbl_book
     set book_id = #{record.bookId,jdbcType=INTEGER},
-      "book_name" = #{record.bookName,jdbcType=VARCHAR},
+      book_name = #{record.bookName,jdbcType=VARCHAR},
       book_desc = #{record.bookDesc,jdbcType=VARCHAR},
       book_photo = #{record.bookPhoto,jdbcType=VARCHAR},
       book_author = #{record.bookAuthor,jdbcType=VARCHAR},
@@ -221,7 +221,7 @@
     update tbl_book
     <set>
       <if test="bookName != null">
-        "book_name" = #{bookName,jdbcType=VARCHAR},
+        book_name = #{bookName,jdbcType=VARCHAR},
       </if>
       <if test="bookDesc != null">
         book_desc = #{bookDesc,jdbcType=VARCHAR},
@@ -246,7 +246,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.smgk.library.bean.Book">
     update tbl_book
-    set "book_name" = #{bookName,jdbcType=VARCHAR},
+    set book_name = #{bookName,jdbcType=VARCHAR},
       book_desc = #{bookDesc,jdbcType=VARCHAR},
       book_photo = #{bookPhoto,jdbcType=VARCHAR},
       book_author = #{bookAuthor,jdbcType=VARCHAR},
@@ -255,8 +255,9 @@
       book_genre = #{bookGenre,jdbcType=INTEGER}
     where book_id = #{bookId,jdbcType=INTEGER}
   </update>
+  
   <!-- 
-  		//查找书，并把类别 也查出来 
+  		//
     	List<Book> getAllBookAndGenre();
    -->
    <resultMap id="getAllBookAndGenreMap" type="com.smgk.library.bean.Book">
@@ -295,5 +296,17 @@
   </resultMap>
   <select id="getBookAndGenreById" resultMap="getBookAndGenreByIdMap">
   	select * from tbl_book where book_id=#{bookId}
+  </select>
+  
+  <!-- 根据部门id来查找书
+  		Book getBookByBook_Genre(Integer book_genre);
+    	select * from tbl_book where book_genre=1;
+  
+   -->
+  <select id="getBookByBook_Genre" resultType="com.smgk.library.bean.Book">
+  	select * from tbl_book 
+  	<where>
+  		 book_genre=#{bookGenre}
+  	</where>
   </select>
 </mapper>

@@ -5,7 +5,7 @@
     <id column="lend_id" jdbcType="INTEGER" property="lendId" />
     <result column="lend_num" jdbcType="INTEGER" property="lendNum" />
     <result column="lend_time" jdbcType="TIMESTAMP" property="lendTime" />
-    <result column=" lend_status" jdbcType="CHAR" property="lendStatus" />
+    <result column="lend_status" jdbcType="CHAR" property="lendStatus" />
     <result column="lend_stu" jdbcType="INTEGER" property="lendStu" />
     <result column="lend_book" jdbcType="INTEGER" property="lendBook" />
   </resultMap>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    lend_id, lend_num, lend_time, " lend_status", lend_stu, lend_book
+    lend_id, lend_num, lend_time, lend_status, lend_stu, lend_book
   </sql>
   <select id="selectByExample" parameterType="com.smgk.library.bean.LeadExample" resultMap="BaseResultMap">
     select
@@ -102,7 +102,7 @@
   </delete>
   <insert id="insert" parameterType="com.smgk.library.bean.Lead">
     insert into tbl_lend (lend_id, lend_num, lend_time, 
-      " lend_status", lend_stu, lend_book
+      lend_status, lend_stu, lend_book
       )
     values (#{lendId,jdbcType=INTEGER}, #{lendNum,jdbcType=INTEGER}, #{lendTime,jdbcType=TIMESTAMP}, 
       #{lendStatus,jdbcType=CHAR}, #{lendStu,jdbcType=INTEGER}, #{lendBook,jdbcType=INTEGER}
@@ -121,7 +121,7 @@
         lend_time,
       </if>
       <if test="lendStatus != null">
-        " lend_status",
+        lend_status,
       </if>
       <if test="lendStu != null">
         lend_stu,
@@ -170,7 +170,7 @@
         lend_time = #{record.lendTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.lendStatus != null">
-        " lend_status" = #{record.lendStatus,jdbcType=CHAR},
+        lend_status = #{record.lendStatus,jdbcType=CHAR},
       </if>
       <if test="record.lendStu != null">
         lend_stu = #{record.lendStu,jdbcType=INTEGER},
@@ -188,7 +188,7 @@
     set lend_id = #{record.lendId,jdbcType=INTEGER},
       lend_num = #{record.lendNum,jdbcType=INTEGER},
       lend_time = #{record.lendTime,jdbcType=TIMESTAMP},
-      " lend_status" = #{record.lendStatus,jdbcType=CHAR},
+      lend_status = #{record.lendStatus,jdbcType=CHAR},
       lend_stu = #{record.lendStu,jdbcType=INTEGER},
       lend_book = #{record.lendBook,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -205,7 +205,7 @@
         lend_time = #{lendTime,jdbcType=TIMESTAMP},
       </if>
       <if test="lendStatus != null">
-        " lend_status" = #{lendStatus,jdbcType=CHAR},
+        lend_status = #{lendStatus,jdbcType=CHAR},
       </if>
       <if test="lendStu != null">
         lend_stu = #{lendStu,jdbcType=INTEGER},
@@ -220,11 +220,12 @@
     update tbl_lend
     set lend_num = #{lendNum,jdbcType=INTEGER},
       lend_time = #{lendTime,jdbcType=TIMESTAMP},
-      " lend_status" = #{lendStatus,jdbcType=CHAR},
+      lend_status = #{lendStatus,jdbcType=CHAR},
       lend_stu = #{lendStu,jdbcType=INTEGER},
       lend_book = #{lendBook,jdbcType=INTEGER}
     where lend_id = #{lendId,jdbcType=INTEGER}
   </update>
+  
   
   <!-- 
   		//查出所有借书记录，借书记录有  书名 学生信息的
@@ -262,5 +263,12 @@
   </select>
   
   
-
+  <!-- 
+  	void resultBook(@Param("leadId") Integer leadId,@Param("LeadStatus")String LeadStatus);
+   -->
+  <update id="resultBook">
+  	update tbl_lend set lend_status='1' where lend_id=#{leadId}
+  </update>
+  
+  
 </mapper>

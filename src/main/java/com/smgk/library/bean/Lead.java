@@ -2,8 +2,6 @@ package com.smgk.library.bean;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class Lead {
     private Integer lendId;
 
@@ -17,28 +15,36 @@ public class Lead {
 
     private Integer lendBook;
     
-    private Student student;
-    
     private Book book;
     
+    private Student student;
     
-
     public Student getStudent() {
 		return student;
 	}
-
 	public void setStudent(Student student) {
 		this.student = student;
 	}
 
-	public Book getBook() {
-		return book;
+	private String LeadBookTime;
+    
+    public String setTime(Date time){
+    	return time.toLocaleString();
+    }
+    public String getLeadBookTime() {
+		return setTime(this.lendTime);
 	}
 
+	public void setLeadBookTime(String leadBookTime) {
+		LeadBookTime = leadBookTime;
+	}
+    
+    public Book getBook() {
+		return book;
+	}
 	public void setBook(Book book) {
 		this.book = book;
 	}
-
 	public Integer getLendId() {
         return lendId;
     }
@@ -54,7 +60,7 @@ public class Lead {
     public void setLendNum(Integer lendNum) {
         this.lendNum = lendNum;
     }
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+
     public Date getLendTime() {
         return lendTime;
     }
@@ -86,14 +92,24 @@ public class Lead {
     public void setLendBook(Integer lendBook) {
         this.lendBook = lendBook;
     }
-
+	public Lead() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Lead(Integer lendId, Integer lendNum, Date lendTime, String lendStatus, Integer lendStu, Integer lendBook) {
+		super();
+		this.lendId = lendId;
+		this.lendNum = lendNum;
+		this.lendTime = lendTime;
+		this.lendStatus = lendStatus;
+		this.lendStu = lendStu;
+		this.lendBook = lendBook;
+	}
 	@Override
 	public String toString() {
 		return "Lead [lendId=" + lendId + ", lendNum=" + lendNum + ", lendTime=" + lendTime + ", lendStatus="
-				+ lendStatus + ", lendStu=" + lendStu + ", lendBook=" + lendBook + ", student=" + student + ", book="
-				+ book + "]";
+				+ lendStatus + ", lendStu=" + lendStu + ", lendBook=" + lendBook + ", book=" + book + ", student="
+				+ student + ", LeadBookTime=" + LeadBookTime + "]";
 	}
-
-	
     
 }

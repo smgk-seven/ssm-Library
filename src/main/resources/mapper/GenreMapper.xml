@@ -163,7 +163,7 @@
   </update>
   <!-- 
   		 //通过类别id，把这一类中的书也查找出来
-    	List<Genre>getGenreAndAllBookById(Integer genreId);
+    	 Genre getGenreAndAllBookById(Integer genreId);
    -->
    <resultMap id="getGenreAndAllBookByIdMap" type="com.smgk.library.bean.Genre">
     <id column="genre_id" jdbcType="INTEGER" property="genreId" />
@@ -182,4 +182,16 @@
    <select id="getGenreAndAllBookById" resultMap="getGenreAndAllBookByIdMap">
    		select * from tbl_book b,tbl_genre g where b.book_genre=g.genre_id and g.genre_id=#{genreId};
    </select>
+  <!--  
+   List<Genre>getGenreAndAllBook();
+  <resultMap id="getGenreAndAllBookMap" type="com.smgk.library.bean.Genre">
+    <id column="genre_id" jdbcType="INTEGER" property="genreId" />
+    <result column="genre_name" jdbcType="VARCHAR" property="genreName" />
+    <collection property="books" ofType="com.smgk.library.bean.Book" select="com.smgk.library.dao.BookMapper.getBookByBook_Genre" column="book_genre"></collection>
+  </resultMap>
+  <select id="getGenreAndAllBook" resultMap="getGenreAndAllBookMap">
+  	select * from tbl_genre;
+  </select>
+    -->
+   
 </mapper>

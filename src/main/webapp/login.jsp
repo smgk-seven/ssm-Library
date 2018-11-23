@@ -10,8 +10,8 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
   <head>
     <base href="<%=basePath%>">
     <link href="${APP_PATH }/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-     <script type="text/javascript" src="${APP_PATH}/static/js/jquery-1.12.4.min.js"></script>
      <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="${APP_PATH}/static/js/jquery-1.12.4.min.js"></script>
     <title>smgk-serven图书馆登录中心</title>
     <style type="text/css">
     	*{
@@ -19,7 +19,6 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
     		padding:0;
     	}
     	.big{
-    		
     		width:100%;
     		height:100%;
     		border:1px solid black;
@@ -255,8 +254,6 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
 		  			data:$("#stuAddModel form").serialize(),
 		  			success:function(result){
 		  				alert(result.msg)
-		  				//插入成功后 关闭模态框
-		  				
 		  			}
 		  		})
 		  		$("input,label,select").val("");

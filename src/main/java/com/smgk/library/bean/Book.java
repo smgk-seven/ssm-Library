@@ -2,8 +2,6 @@ package com.smgk.library.bean;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class Book {
     private Integer bookId;
 
@@ -14,16 +12,17 @@ public class Book {
     private String bookPhoto;
 
     private String bookAuthor;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+
     private Date bookTime;
 
     private Integer count;
 
     private Integer bookGenre;
     
-    //把类别也放进来
     private Genre genre;
     
+    
+
     public Genre getGenre() {
 		return genre;
 	}
@@ -45,7 +44,7 @@ public class Book {
     }
 
     public void setBookName(String bookName) {
-        this.bookName = bookName;
+        this.bookName = bookName == null ? null : bookName.trim();
     }
 
     public String getBookDesc() {
@@ -95,6 +94,24 @@ public class Book {
     public void setBookGenre(Integer bookGenre) {
         this.bookGenre = bookGenre;
     }
+    
+	public Book() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Book(Integer bookId, String bookName, String bookDesc, String bookPhoto, String bookAuthor, Date bookTime,
+			Integer count, Integer bookGenre) {
+		super();
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.bookDesc = bookDesc;
+		this.bookPhoto = bookPhoto;
+		this.bookAuthor = bookAuthor;
+		this.bookTime = bookTime;
+		this.count = count;
+		this.bookGenre = bookGenre;
+	}
 
 	@Override
 	public String toString() {
@@ -103,6 +120,7 @@ public class Book {
 				+ ", bookGenre=" + bookGenre + ", genre=" + genre + "]";
 	}
 
+	
 	
     
 }

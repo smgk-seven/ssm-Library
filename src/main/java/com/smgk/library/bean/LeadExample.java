@@ -286,72 +286,72 @@ public class LeadExample {
         }
 
         public Criteria andLendStatusIsNull() {
-            addCriterion("\" lend_status\" is null");
+            addCriterion("lend_status is null");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusIsNotNull() {
-            addCriterion("\" lend_status\" is not null");
+            addCriterion("lend_status is not null");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusEqualTo(String value) {
-            addCriterion("\" lend_status\" =", value, "lendStatus");
+            addCriterion("lend_status =", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusNotEqualTo(String value) {
-            addCriterion("\" lend_status\" <>", value, "lendStatus");
+            addCriterion("lend_status <>", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusGreaterThan(String value) {
-            addCriterion("\" lend_status\" >", value, "lendStatus");
+            addCriterion("lend_status >", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("\" lend_status\" >=", value, "lendStatus");
+            addCriterion("lend_status >=", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusLessThan(String value) {
-            addCriterion("\" lend_status\" <", value, "lendStatus");
+            addCriterion("lend_status <", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusLessThanOrEqualTo(String value) {
-            addCriterion("\" lend_status\" <=", value, "lendStatus");
+            addCriterion("lend_status <=", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusLike(String value) {
-            addCriterion("\" lend_status\" like", value, "lendStatus");
+            addCriterion("lend_status like", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusNotLike(String value) {
-            addCriterion("\" lend_status\" not like", value, "lendStatus");
+            addCriterion("lend_status not like", value, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusIn(List<String> values) {
-            addCriterion("\" lend_status\" in", values, "lendStatus");
+            addCriterion("lend_status in", values, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusNotIn(List<String> values) {
-            addCriterion("\" lend_status\" not in", values, "lendStatus");
+            addCriterion("lend_status not in", values, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusBetween(String value1, String value2) {
-            addCriterion("\" lend_status\" between", value1, value2, "lendStatus");
+            addCriterion("lend_status between", value1, value2, "lendStatus");
             return (Criteria) this;
         }
 
         public Criteria andLendStatusNotBetween(String value1, String value2) {
-            addCriterion("\" lend_status\" not between", value1, value2, "lendStatus");
+            addCriterion("lend_status not between", value1, value2, "lendStatus");
             return (Criteria) this;
         }
 

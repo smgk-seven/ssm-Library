@@ -40,6 +40,19 @@ public class Admin {
     public void setAdminPwd(String adminPwd) {
         this.adminPwd = adminPwd == null ? null : adminPwd.trim();
     }
+    
+	public Admin(Integer adminId, String adminName, String adminCard, String adminPwd) {
+		super();
+		this.adminId = adminId;
+		this.adminName = adminName;
+		this.adminCard = adminCard;
+		this.adminPwd = adminPwd;
+	}
+
+	public Admin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {

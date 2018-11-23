@@ -9,6 +9,7 @@ public class StuLeadInfo {
 	private String leadBookPhoto;
 	private String leadBookName;
 	private int leadBookId;
+	private Integer leadBookNum;
 	
 	public Integer getLeadBookCount() {
 		return leadBookCount;
@@ -47,12 +48,20 @@ public class StuLeadInfo {
 	public void setLeadBookId(int leadBookId) {
 		this.leadBookId = leadBookId;
 	}
+	
+	public Integer getLeadBookNum() {
+		return leadBookNum;
+	}
+	public void setLeadBookNum(Integer leadBookNum) {
+		this.leadBookNum = leadBookNum;
+	}
 	@Override
 	public String toString() {
 		return "StuLeadInfo [leadBookCount=" + leadBookCount + ", leadBookTime=" + leadBookTime + ", leadBookStatus="
 				+ leadBookStatus + ", leadBookPhoto=" + leadBookPhoto + ", leadBookName=" + leadBookName
-				+ ", leadBookId=" + leadBookId + "]";
+				+ ", leadBookId=" + leadBookId + ", leadBookNum=" + leadBookNum + "]";
 	}
+	
 	
 
 }

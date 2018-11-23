@@ -33,5 +33,7 @@ public interface GenreMapper {
     
     //通过类别id，把这一类中的书也查找出来
    Genre getGenreAndAllBookById(Integer genreId);
+   
+   List<Genre>getGenreAndAllBook();
     
 }

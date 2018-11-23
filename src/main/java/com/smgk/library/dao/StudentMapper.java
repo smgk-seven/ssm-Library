@@ -29,4 +29,7 @@ public interface StudentMapper {
     int updateByPrimaryKey(Student record);
     //查找学生把借的书都返回
     Student getStuLeadBookByStuId(Integer stuId);
+    
+    //查找所有学生，不查找密码
+    List<Student> getAllStuNoPwdd();
 }
