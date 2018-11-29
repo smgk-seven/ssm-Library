@@ -35,7 +35,7 @@ public class BookController {
 		System.out.println(bCPageInfo);
 		return Msg.success().add("bCPageInfo", bCPageInfo);
 	}
-	//处理编程书
+	//处理设计书
 	@RequestMapping("/getSheJiBooks")
 	@ResponseBody
 	public Msg getSheJiBooks(@RequestParam("currPageNum") Integer currPageNum){
@@ -45,7 +45,7 @@ public class BookController {
 		System.out.println(SJPageInfo);
 		return Msg.success().add("SJPageInfo", SJPageInfo);
 	}
-	//处理编程书
+	//处理电商书
 	@RequestMapping("/getDianShangBooks")
 	@ResponseBody
 	public Msg getDianShangBooks(@RequestParam("currPageNum") Integer currPageNum){
@@ -74,7 +74,7 @@ public class BookController {
 		BookInfo bookInfo=new BookInfo(lends.size(),daihuan,yihuan);
 		PageHelper.startPage(pageNum, 5);
 		List<Book> books = bookService.getAllBookGenre();
-		PageInfo pageInfo=new PageInfo(books,5);
+		PageInfo pageInfo=new PageInfo(books,3);
 		
 		return Msg.success().add("bookInfo", bookInfo).add("pageInfo", pageInfo);
 	}
@@ -99,7 +99,6 @@ public class BookController {
 	@ResponseBody
 	public Msg getBook(@RequestParam(value="bookId") Integer bookId){
 		Book book = bookService.getbookById(bookId);
-		System.out.println("要修改的书："+bookId);
 		return Msg.success().add("book", book);
 	}
 	@RequestMapping(value="/editBook",method=RequestMethod.POST)

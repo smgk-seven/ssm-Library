@@ -10,8 +10,8 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
   <head>
     <base href="<%=basePath%>">
     <link href="${APP_PATH }/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-     <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
      <script type="text/javascript" src="${APP_PATH}/static/js/jquery-1.12.4.min.js"></script>
+     <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <title>smgk-serven图书馆登录中心</title>
     <style type="text/css">
     	*{
@@ -258,7 +258,6 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
 		  		})
 		  		$("input,label,select").val("");
 		  	})
-  	
 		});
 	</script>
 </html>

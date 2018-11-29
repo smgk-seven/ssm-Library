@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smgk.library.bean.Lead;
 import com.smgk.library.bean.Msg;
+import com.smgk.library.bean.StuInfo;
 import com.smgk.library.bean.Student;
 import com.smgk.library.service.StudentService;
+import com.smgk.library.util.utils;
 
 @Controller
 public class StudentController {
@@ -43,6 +47,7 @@ public class StudentController {
 	@ResponseBody
 	public Msg saveStu(Student student){
 		System.out.println("新添加的用户："+student);
+		student.setStuPwd(utils.md5(student.getStuPwd()));
 		studentService.addStu(student);
 		return Msg.success();
 	}
@@ -71,6 +76,47 @@ public class StudentController {
 	public String goStudentHome(){
 		return "studentHome";
 	}
+	//获取所有少于显示到表格中
+	@RequestMapping("/getStudents")
+	@ResponseBody
+	public Msg getStudents(@RequestParam(value="pageNum") Integer pageNum){
+		int stuCount=0;
+		int stuBMD=0;
+		int stuHMD=0;
+		List<Student> allStus = studentService.getAllStus();
+		for(Student s:allStus){
+			if(s.getStuStatus().equals("0")){
+				stuBMD++;
+			}else{
+				stuHMD++;
+			}
+		}
+		stuCount=allStus.size();
+		//System.out.println("总数"+stuCount+" bmd:"+stuBMD+" hmd:"+stuHMD);
+		StuInfo stuinfo=new StuInfo(stuCount, stuBMD, stuHMD);
+		PageHelper.startPage(pageNum, 5);
+		List<Student> stus = studentService.getAllStus();
+		//System.out.println(stuCount);
+		PageInfo stuInfo=new PageInfo(stus,3);
+		return Msg.success().add("stuInfo", stuInfo).add("stuinfo", stuinfo);
+	}
+	//处理添加与删除黑名单
+	@RequestMapping("/stuStatus")
+	@ResponseBody
+	public Msg stuStatus(@RequestParam(value="stuId")Integer stuId,@RequestParam(value="stuDemand")String stuDemand){
+		Student stu=new Student();
+		stu.setStuId(stuId);
+		if(stuDemand.equals("移出黑名单")){
+			stu.setStuStatus("0");
+		}
+		if(stuDemand.equals("加入黑名单")){
+			stu.setStuStatus("1");
+		}
+		studentService.updateStuStatus(stu);
+		return Msg.success();
+	}
+	
+	
 	
 	
 }

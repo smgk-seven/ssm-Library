@@ -31,5 +31,9 @@ public class StudentService {
 		return studentMapper.selectByPrimaryKey(stuId);
 		
 	}
+
+	public void updateStuStatus(Student stu) {
+		studentMapper.updateByPrimaryKeySelective(stu);
+	}
 	
 }

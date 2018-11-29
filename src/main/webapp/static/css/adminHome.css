@@ -165,7 +165,7 @@
     		float:left;
     		margin-left:10px;
     	}
-    	.book_content,.stu_conten{
+    	.book_content,.stu_content{
     		height: 320px;
     	}
     	.book_fy,.stu_fy{
@@ -174,7 +174,7 @@
     		width:890px;
     		text-align: center;
     	}
-    	.book_fyInfo,.book_fyInfo{
+    	.book_fyInfo,.stu_fyInfo{
     		width:250px;
     		float:left;
     		height: 40px;

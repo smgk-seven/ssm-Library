@@ -160,13 +160,14 @@ public class MapperTest {
 	}
 	@Test
 	public void testStu(){
-		/*Student stuAllInfo = studentMapper.getStuLeadBookByStuId(1);
-		for(Lead l:stuAllInfo.getLends()){
+		Student stuAllInfo = studentMapper.getStuLeadBookByStuId(1);
+		/*for(Lead l:stuAllInfo.getLends()){
 			System.out.println(l);
 		}*/
-		Student stu=new Student(null, "老张", "0", "lz@lx.com", "0", "lllzzz", "123456");
+		System.out.println(stuAllInfo);
+		/*Student stu=new Student(null, "老张", "0", "lz@lx.com", "0", "lllzzz", "123456");
 		stu.setStuPwd(utils.md5(stu.getStuPwd()));
-		studentMapper.insertSelective(stu);
+		studentMapper.insertSelective(stu);*/
 		
 	}
 	

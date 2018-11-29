@@ -15,13 +15,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="${APP_PATH }/static/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="${APP_PATH }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     
+    
     <title>My JSP 'adminHome.jsp' starting page</title>
     <style type="text/css">
     	
-    	
     </style>
   </head>
-  
   <body>
     <%-- <h3>
     	welcome ${sessionScope.adminId}
@@ -71,15 +70,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<div class="user_info">
     					<ul>
     						<li class="user_info_li">
-    							<div class="user_info_value userCount">50</div>
+    							<div class="user_info_value userCount"></div>
     							<div class="user_info_name">总用户个数</div>
     						</li>
     						<li class="user_info_li">
-    							<div class="user_info_value bmd">50</div>
+    							<div class="user_info_value bmd"></div>
     							<div class="user_info_name">白名单</div>
     						</li>
     						<li class="user_info_li">
-    							<div class="user_info_value hmd">50</div>
+    							<div class="user_info_value hmd"></div>
     							<div class="user_info_name">黑名单</div>
     						</li>
     						
@@ -144,6 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						         <th>stuId</th>
 						         <th>stuName</th>
 						         <th>stuSex</th>
+						         <th>stuEmail</th>
 						         <th>stuStatus</th>
 						         <th>###</th>
 						      </tr>
@@ -276,6 +276,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
+	
+	<!-- 查看用户详情的模态框 -->
+	<div class="modal fade" id="showStuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<div class="stuName"><span class="stuNameSpan" style="color: red;"></span><span>：的借书记录</span></div>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div></div>
+					<table class="table showStuTable">
+						
+					   <thead>
+					      <tr>
+					         <th>订单编号</th>
+					         <th>书名</th>
+					         <th>借书时间</th>
+					         <th>借书状态</th>
+					         
+					      </tr>
+					   </thead>
+					   <tbody id="stu_BorrBook_tbody">
+					   </tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	 
   </body>
   <script type="text/javascript">
   	$(function(){
@@ -291,7 +329,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		})
   		//getBook
   		getBooks(1);
-  		getStudents(1)
+  		getStudents(1);
   	})
   	//全局变量
   	var pageNum=0;
@@ -494,6 +532,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		
   		})
   	})
+  	
   	//用户的操作
   	function getStudents(pageNum){
   		$.ajax({
@@ -501,10 +540,177 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			data:"pageNum="+pageNum,
   			type:"GET",
   			success:function(result){
+  				addStuInfo(result);
+  				stuFyInfo(result);
+  				stuFyt(result);
+  				addUserInfo(result);
   				
   			}
   		})
   	}
-  	
+  	//填充学生信息
+  	function addStuInfo(result){
+  		$("#stuInfo").empty();
+  		$.each(result.extend.stuInfo.list,function(index,item){
+  			var stuSex;
+  			var stuStatus
+  			var addLMD;
+  			if(item.stuSex=='0'){
+  				stuSex='男';
+  			}
+  			if(item.stuSex=='1'){
+  				stuSex='女';
+  			}
+  			if(item.stuStatus=='0'){
+  				stuStatus='良好';
+  				addLMD=$("<button type='button' class='btn btn-danger add_to_hmd'>加入黑名单</button>").attr("bookId",item.bookId);
+  			}
+  			if(item.stuStatus=='1'){
+  				stuStatus='极差';
+  				addLMD=$("<button type='button' class='btn btn-danger add_to_hmd'>移出黑名单</button>").attr("bookId",item.bookId);
+  			}
+	  		var stuIdBt=$("<td>"+item.stuId+"</td>")
+			var stuNameBt=$("<td>"+item.stuName+"</td>")
+			var stuSexBt=$("<td>"+stuSex+"</td>")
+			var stuEmailBt=$("<td>"+item.stuEmail+"</td>")
+			var stuStatusBt=$("<td>"+stuStatus+"</td>")
+			
+			var showLeadBook=$("<button type='button' class='btn btn-primary show_Lead_book' >查看借书记录</button>").attr("bookId",item.bookId);
+			var action=$("<td></td>").append(showLeadBook).append(" ").append(addLMD)
+			
+			$("<tr></tr>").append(stuIdBt).append(stuNameBt).append(stuSexBt).append(stuEmailBt).append(stuStatusBt).append(action).appendTo("#stuInfo");
+  			if(stuStatusBt.text()=='极差'){
+  				stuStatusBt.css("color","red");
+  			}
+  		})
+  	}
+  	//添加用户
+  
+  	//加入黑名单
+  	$(document).on("click",".add_to_hmd",function(){
+	  	var stuId=$(this).parents("tr").find("td:eq(0)").text();
+	  	var stuDemand=$(this).parents("tr").find("td:eq(5)").find("button:eq(1)").text();
+	 
+  		$.ajax({
+  			url:"${APP_PATH}/stuStatus",
+  			data:"stuId="+stuId+"&stuDemand="+stuDemand,
+  			type:"POST",
+  			success:function(result){
+  				alert(result.msg)
+  				getStudents(1);
+  			}
+  		})
+  		
+  	})
+  	//用户分页信息
+  	function stuFyInfo(result){
+  		$(".stu_fyInfo").empty();
+  		$(".stu_fyInfo").append("总书数【"+result.extend.stuInfo.total+"】 当面页【"+result.extend.stuInfo.pageNum+"】");
+  		stuNum=result.extend.stuInfo.pageNum;
+  		stuPages=result.extend.stuInfo.pages;
+  	}
+  	//用户信息分页条
+  	function stuFyt(result){
+  		$(".stu_fyt").empty();
+  		var ul=$("<ul></ul>").addClass("pagination");
+  		
+  		var firstPageLi = $("<li></li>").append($("<a></a>").append("首页"));
+  		var prePageLi = $("<li></li>").append($("<a></a>").append("《"));
+  		
+  		//判断如果没有上一页，就设置为不可点击 
+  		if(result.extend.stuInfo.hasPreviousPage==false){
+  			firstPageLi.addClass("disabled");
+  			prePageLi.addClass("disabled");
+  		}else{
+			//为元素添加点击翻页的事件
+			firstPageLi.click(function(){
+				getStudents(1);
+			});
+			prePageLi.click(function(){
+				getStudents(result.extend.stuInfo.pageNum -1);
+			});
+			}
+  		var nextPageLi = $("<li></li>").append($("<a></a>").append("》"));
+  		var lastPageLi = $("<li></li>").append($("<a></a>").append("尾页"));
+  		
+  		//判断如果没有上一页，就设置为不可点击 
+  		if(result.extend.stuInfo.hasNextPage==false){
+  			nextPageLi.addClass("disabled");
+  			lastPageLi.addClass("disabled");
+  		}else{
+			nextPageLi.click(function(){
+				getStudents(result.extend.stuInfo.pageNum +1);
+			});
+			lastPageLi.click(function(){
+				getStudents(result.extend.stuInfo.pages);
+			});
+		}
+  		ul.append(firstPageLi).append(prePageLi);
+  		//遍历 出 页数导航条--》 navigatepageNums
+  		$.each(result.extend.stuInfo.navigatepageNums,function(index,item){
+  			
+  			var numLi = $("<li></li>").append($("<a></a>").append(item));
+  			if(result.extend.stuInfo.pageNum==item){
+  				numLi.addClass("active");
+  			}
+  			numLi.click(function(){
+  				getStudents(item);
+  			})
+  			ul.append(numLi);
+  		})
+  		ul.append(nextPageLi).append(lastPageLi);
+  		var navEle=$("<nav></nav>").append(ul);
+  		navEle.appendTo(".stu_fyt");
+  	}
+  	//把学生信息添加到div
+  	function addUserInfo(result){
+  		$(".userCount").append(result.extend.stuinfo.stuCount);
+  		$(".bmd").append(result.extend.stuinfo.stuBMD);
+  		$(".hmd").append(result.extend.stuinfo.stuLMD);
+  	}
+  	//处理查看用户详情按钮
+  	$(document).on("click",".show_Lead_book",function(){
+  		$(".stuNameSpan").empty()
+  		var stuId=$(this).parents("tr").find("td:eq(0)").text();
+  		var stuName=$(this).parents("tr").find("td:eq(1)").text();
+  		$(".stuNameSpan").append(stuName)
+  		
+  		$.ajax({
+  			url:"${APP_PATH}/getStuAllInfo",
+  			data:"STUID="+stuId,
+  			type:"GET",
+  			success:function(result){
+  				addStuBorrBookToDiv(result);
+  			}
+  		})
+  		$("#showStuModal").modal(function(){
+  			backdrop:'static';
+  		})
+  	})
+  	//把个人用户的借书信息添加到div
+  	function addStuBorrBookToDiv(result){
+  		$("#showStuModal .modal-dialog .modal-content .modal-body div").empty();
+  		$("#stu_BorrBook_tbody").empty();
+  		var StuLeadBookInfoS=result.extend.stuAllInfo.lends;
+  		if(StuLeadBookInfoS==null){
+  			$("#showStuModal .modal-dialog .modal-content .modal-body div").append("<div style='color: red;font-size:20px;'>此用户没有借过书</div>")
+  		}
+  		$.each(StuLeadBookInfoS,function(index,item){
+	  		var BookStatus=null;
+	  		var huansuBt=null;
+  			if(item.lendStatus=="0"){
+  				BookStatus="待还";
+  				huansuBt=$("<td class='huanshuBt' id='huanshubtId'>"+'还书'+"</td>");
+  				huansuBt.attr("lendBookId",item.lendId);
+  			}else{
+  				BookStatus="已还";
+  			}
+  			var leadBookNumBt=$("<td>"+item.lendNum+"</td>")
+  			var BookNameBt=$("<td>"+item.book.bookName+"</td>")
+  			var LeadBookTimeBt=$("<td>"+item.leadBookTime+"</td>")
+  			var BookStatusBt=$("<td>"+BookStatus+"</td>")
+  			$("<tr></tr>").append(leadBookNumBt).append(BookNameBt).append(LeadBookTimeBt).append(BookStatusBt).appendTo("#stu_BorrBook_tbody");
+  		})
+  	}
   	</script>
 </html>

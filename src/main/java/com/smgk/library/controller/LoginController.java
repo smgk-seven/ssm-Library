@@ -89,6 +89,7 @@ public class LoginController {
 			return "studentHome";
 		}
 		return "message";
+		
 	}
 	
 	@RequestMapping("/exit")
