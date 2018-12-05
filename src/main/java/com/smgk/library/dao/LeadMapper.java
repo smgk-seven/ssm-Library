@@ -34,6 +34,7 @@ public interface LeadMapper {
     List<Lead> getAllLeadBookStuInfoByStuId(Integer stuId);
     //还书
     void resultBook(@Param("leadId") Integer leadId,@Param("LeadStatus")String LeadStatus);
-
+    //根据学生id查出 学生借书
+    List<Lead> getStuLeadBookByStuId(Integer stuid);
 
 }

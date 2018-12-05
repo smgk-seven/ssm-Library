@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.smgk.library.bean.Lead;
+import com.smgk.library.bean.Admin;
 import com.smgk.library.bean.Msg;
 import com.smgk.library.bean.StuInfo;
 import com.smgk.library.bean.Student;
+import com.smgk.library.service.AdminService;
 import com.smgk.library.service.StudentService;
 import com.smgk.library.util.utils;
 
@@ -25,20 +25,28 @@ import com.smgk.library.util.utils;
 public class StudentController {
 	@Autowired
 	private StudentService studentService;
-	
-	
+	@Autowired
+	private AdminService adminService;
 	//检查账号是否可用
-	@RequestMapping("/checkstuCard")
+	@RequestMapping("/checkStuCard")
 	@ResponseBody
-	public Msg checkStuCard(@PathVariable("stuCard") String stuCard){
+	public Msg checkStuCard(@RequestParam("stuCard") String stuCard){
 		System.out.println("你要查重的名字是："+stuCard);
 		String msg=null;
 		List<Student> allStus = studentService.getAllStus();
+		List<Admin> allAdmin = adminService.getAllAdmin();
 		for(Student s:allStus){
 			if(s.getStuCard().equals(stuCard)){
 				return Msg.fail();
 			}
 		}
+		for(Admin a:allAdmin){
+			if(a.getAdminCard().equals(stuCard)){
+				System.out.println("些名字与管理员的名有冲突");
+				return Msg.fail();
+			}
+		}
+		System.out.println("执行两次for后");
 		return Msg.success();
 	}
 	
@@ -51,6 +59,7 @@ public class StudentController {
 		studentService.addStu(student);
 		return Msg.success();
 	}
+	
 	//处理个人用户的信息，全部在这里获取 ，
 	@RequestMapping("/getStuAllInfo")
 	@ResponseBody
@@ -64,6 +73,7 @@ public class StudentController {
 		}
 		return Msg.success().add("stuAllInfo",stuAllInfo);
 	}
+	
 	//跳转到书城
 	@RequestMapping("/showBooks")
 	public String showBooks(@RequestParam(value="stuId") Integer stuId,@RequestParam(value="StuStatus") String StuStatus, HttpServletRequest request){
@@ -76,7 +86,7 @@ public class StudentController {
 	public String goStudentHome(){
 		return "studentHome";
 	}
-	//获取所有少于显示到表格中
+	//获取所有用户显示到表格中
 	@RequestMapping("/getStudents")
 	@ResponseBody
 	public Msg getStudents(@RequestParam(value="pageNum") Integer pageNum){

@@ -32,7 +32,7 @@ public class BookController {
 		PageHelper.startPage(currPageNum, 6);
 		List<Book> BCBs = bookService.getBookAndGenreByBook_genreId(1);
 		PageInfo <Book>bCPageInfo=new PageInfo<Book>(BCBs, 5);
-		System.out.println(bCPageInfo);
+		//System.out.println(bCPageInfo);
 		return Msg.success().add("bCPageInfo", bCPageInfo);
 	}
 	//处理设计书
@@ -42,7 +42,7 @@ public class BookController {
 		PageHelper.startPage(currPageNum, 6);
 		List<Book> BCBs = bookService.getBookAndGenreByBook_genreId(2);
 		PageInfo <Book>SJPageInfo=new PageInfo<Book>(BCBs, 5);
-		System.out.println(SJPageInfo);
+		//System.out.println(SJPageInfo);
 		return Msg.success().add("SJPageInfo", SJPageInfo);
 	}
 	//处理电商书
@@ -52,7 +52,7 @@ public class BookController {
 		PageHelper.startPage(currPageNum, 6);
 		List<Book> BCBs = bookService.getBookAndGenreByBook_genreId(3);
 		PageInfo <Book>DSPageInfo=new PageInfo<Book>(BCBs, 5);
-		System.out.println(DSPageInfo);
+		//System.out.println(DSPageInfo);
 		return Msg.success().add("DSPageInfo", DSPageInfo);
 	}
 	
@@ -90,7 +90,7 @@ public class BookController {
 	@ResponseBody
 	public Msg addBook(Book book){
 		book.setBookTime(new Date());
-		System.out.println(book);
+		//System.out.println(book);
 		bookService.addBook(book);
 		return Msg.success();
 	}
@@ -105,7 +105,7 @@ public class BookController {
 	@ResponseBody
 	public Msg editBook(Book book){
 		book.setBookTime(book.getBookTime());
-		System.out.println("修改："+book);
+		//System.out.println("修改："+book);
 		bookService.editBook(book);
 		return Msg.success();
 	}

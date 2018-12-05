@@ -1,5 +1,7 @@
 package com.smgk.library.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.smgk.library.bean.Lead;
+import com.smgk.library.bean.LeadInfo;
 import com.smgk.library.bean.Msg;
 import com.smgk.library.service.LeadService;
 
@@ -22,7 +27,7 @@ public class LeadController {
 	@ResponseBody
 	public Msg returnBook(@PathVariable("leadBookId") Integer leadBookId){
 		String lendStatus="1";
-		System.out.println("还书  id 是"+leadBookId);
+		//System.out.println("还书  id 是"+leadBookId);
 		leadService.returnBook(leadBookId,lendStatus);
 		return Msg.success();
 	}
@@ -38,6 +43,28 @@ public class LeadController {
 		return Msg.success();
 	}
 	
-	
+	//处理用户借书的请求
+	@RequestMapping("/getStuLend")
+	@ResponseBody
+	public Msg getStuLend(@RequestParam(value="stuId") Integer stuId,@RequestParam(value="pageNum") Integer pageNum){
+		LeadInfo leadInfo=new LeadInfo();
+		int y=0;
+		int d=0;
+		List<Lead> lends = leadService.getStuLendByStuId(stuId);
+		leadInfo.setLendBookCount(lends.size());
+		for(Lead l:lends){
+			if(l.getLendStatus().equals("0")){
+				d++;
+			}else{
+				y++;
+			}
+		}
+		leadInfo.setDaiHuan(d);
+		leadInfo.setYiHuan(y);
+		PageHelper.startPage(pageNum, 5);
+		List<Lead> stuLends = leadService.getStuLendByStuId(stuId);
+		PageInfo stuLendInfo=new PageInfo(stuLends,3);
+		return Msg.success().add("stuLendInfo", stuLendInfo).add("leadInfo", leadInfo);
+	}
 	
 }

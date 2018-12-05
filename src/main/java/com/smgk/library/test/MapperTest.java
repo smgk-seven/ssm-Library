@@ -143,19 +143,11 @@ public class MapperTest {
 		//leadMapper.insertSelective(new Lead(null, 585856,new Date(), "0", 1, 1));
 		//借出的书和总借书记录数
 //		List<Lead> lends = leadMapper.selectByExample(null);
-		List<Lead> lends = leadMapper.getAllLeadBookStuInfo();
-		int i=0;
-		int h=0;
+		List<Lead> lends = leadMapper.getStuLeadBookByStuId(1);
 		for(Lead l:lends){
-			if(l.getLendStatus().equals("0")){
-				i++;
-			}else{
-				h++;
-			}
+			System.out.println(l.getLeadBookTime());
+			
 		}
-		System.out.println("总数"+lends.size());
-		System.out.println("待还"+i);
-		System.out.println("已还"+h);
 		
 	}
 	@Test
@@ -164,10 +156,11 @@ public class MapperTest {
 		/*for(Lead l:stuAllInfo.getLends()){
 			System.out.println(l);
 		}*/
-		System.out.println(stuAllInfo);
+		//System.out.println(stuAllInfo);
 		/*Student stu=new Student(null, "老张", "0", "lz@lx.com", "0", "lllzzz", "123456");
 		stu.setStuPwd(utils.md5(stu.getStuPwd()));
 		studentMapper.insertSelective(stu);*/
+		
 		
 	}
 	

@@ -270,5 +270,31 @@
   	update tbl_lend set lend_status='1' where lend_id=#{leadId}
   </update>
   
+  <!-- 根据学生id，查出学生借的书 -->
+  <!-- List<Lead> getStuLeadBookByStuId(Integer stuid); -->
+  <resultMap type="com.smgk.library.bean.Lead" id="getStuLeadBookByStuIdMap">
+  	<id column="lend_id" jdbcType="INTEGER" property="lendId" />
+    <result column="lend_num" jdbcType="INTEGER" property="lendNum" />
+    <result column="lend_time" jdbcType="TIMESTAMP" property="lendTime" />
+    <result column=" lend_status" jdbcType="CHAR" property="lendStatus" />
+    <result column="lend_stu" jdbcType="INTEGER" property="lendStu" />
+    <result column="lend_book" jdbcType="INTEGER" property="lendBook" />
+    <association property="book" select="com.smgk.library.dao.BookMapper.selectByPrimaryKey" column="lend_book">
+    	<id column="book_id" jdbcType="INTEGER" property="bookId" />
+	    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+	    <result column="book_desc" jdbcType="VARCHAR" property="bookDesc" />
+	    <result column="book_photo" jdbcType="VARCHAR" property="bookPhoto" />
+	    <result column="book_author" jdbcType="VARCHAR" property="bookAuthor" />
+	    <result column="book_time" jdbcType="TIMESTAMP" property="bookTime" />
+	    <result column="count" jdbcType="INTEGER" property="count" />
+	    <result column="book_genre" jdbcType="INTEGER" property="bookGenre" />
+    </association>
+  </resultMap>
+  <select id="getStuLeadBookByStuId" resultMap="getStuLeadBookByStuIdMap">
+  	select * from tbl_lend
+  	<where>
+  		lend_stu=#{stuid}
+  	</where>
+  </select>
   
 </mapper>

@@ -75,9 +75,11 @@ public class LoginController {
 			}
 		}
 		if(result==0){
+			request.setAttribute("message", "用户不存在");
 			return"message";
 		}
 		if(result==3){
+			request.setAttribute("message", "密码错误");
 			return"message";
 		}
 		if(result==1){
@@ -96,6 +98,7 @@ public class LoginController {
 	public void exit(HttpSession session,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("adminId");
+		request.getSession().removeAttribute("stuId");
 		//request.getRequestDispatcher("login.jsp").forward(request,response);
 		response.sendRedirect(request.getContextPath());
 		return;

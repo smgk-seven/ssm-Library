@@ -27,7 +27,7 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
     	}
     	.center{
     		width: 600px;
-    		height:400px;
+    		height:450px;
     		background-color: rgba(255,255,255,0.1);
     		margin: 150px auto;
     		padding: 12px;
@@ -67,8 +67,8 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
 						    <label class="col-sm-2 control-label">stuName</label>
 						    <div class="col-sm-10">
 						    <input type="text" name="stuName" class="form-control" id="stuName_add_input" placeholder="请输入用户名">
-						    <input type="hidden" name="stuStatus" class="form-control" id="stuStatus_add_input"value="0">
 						    <span class="help-block"></span>
+						    <input type="hidden" name="stuStatus" class="form-control" id="stuStatus_add_input"value="0">
 						</div>
 						<div class="form-group">
 						    <label class="col-sm-2 control-label">stuEmail</label>
@@ -123,18 +123,20 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
 					  <div class="form-group">
 					    <label for="firstname" class="col-sm-2 control-label">username</label>
 					    <div class="col-sm-10">
-					      <input type="text" class="form-control" id="firstname" name="username" placeholder="请输入登录 名">
+					      <input type="text" class="form-control" id="loginName" name="username" placeholder="请输入登录 名">
+					    	<span class="help-block"></span>
 					    </div>
 					  </div>
 					  <div class="form-group">
 					    <label for="lastname" class="col-sm-2 control-label">password</label>
 					    <div class="col-sm-10">
-					      <input type="password" class="form-control" id="lastname" name="password"  placeholder="请输入登录 密码">
+					      <input type="password" class="form-control" id="loginPassword" name="password"  placeholder="请输入登录 密码">
+					    	<span class="help-block"></span>
 					    </div>
 					  </div>
 					  <div class="form-group">
 					    <div class="col-sm-offset-2 col-sm-10 buttonDiv">
-					      <button type="submit" class="btn btn-default">登录</button>
+					      <button type="submit" class="btn btn-default login">登录</button>
 					       <button type="button" class="btn btn-primary" id="addStuBut">注册</button>
 					    </div>
 					  </div>
@@ -147,117 +149,129 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
 	</body>
 	
 	<script type="text/javascript">
-		$(function(){
-			$("#addStuBut").click(function(){
-				$("#stuAddModel").modal(function(){
-					backdrop:'static';
-				});
-			});
+	//处理登录时的简单验证
+	$(".login").click(function(){
+		if($("#loginName").val()==''|$("#loginPassword").val()==''){
+			if($("#loginName").val()==''){
+				show_validate_msg("#loginName","error","用户名不能为空");
+			}else{
+				show_validate_msg("#loginName","success","");
+			}
+			if($("#loginPassword").val()==''){
+				show_validate_msg("#loginPassword","error","密码不能为空");
+			}else{
+				show_validate_msg("#loginPassword","success","");
+			}
+			return false;
+		}
+	})
+	//处理注册
+	//弹出模态框
+	$("#addStuBut").click(function(){
+		$("#stuAddModel").modal(function(){
+			backdrop:'static';
+		});
+	})
+	//处理保存按钮
+	$("#stu_save_btn").click(function(){
+		if(!validate_add_form()){
+			return false;
+		}
+		console.log("检查完成")
+		console.log($("#stuAddModel form").serialize())
+		$("#stuAddModel").modal('hide');
+		$.ajax({
+			url:"${APP_PATH }/stu",
+			type:"POST",
+			data:$("#stuAddModel form").serialize(),
 			
-			//校验信息功能
-		  	function validate_add_form(){
-		  		//校验两项，邮箱，员工名
-		  		var stuCard=$("#stuCard_add_input").val();
-		  		var regCard = /(^[a-zA-Z_-]{6}$)/;
-		  		var stuEmail=$("#stuEmail_add_input").val();
-		  		var regEmail = /^([a-zA-Z0-9_\.-]+)@([a-zA-Z0-9_\.-]+)\.([a-z\.]{2,6})$/
-		  		
-		  		if(!regEmail.test(stuEmail)|!regCard.test(stuCard)){
-		  			
-		  			if(!regCard.test(stuCard)){
-						show_validate_msg("#stuCard_add_input", "error", "账号{stuCard}必须是6位字母");
-		  			}
-		  			if(!regEmail.test(stuEmail)){
-		  				show_validate_msg("#stuEmail_add_input", "error", "邮箱格式不正确");
-		  			}
-					return false;
-				}else{
-					
-					if(regCard.test(stuCard)){
-						show_validate_msg("#stuCard_add_input", "success", "");
-					}
-					if(regEmail.test(stuEmail))
-						show_validate_msg("#stuEmail_add_input", "success", "");
+			success:function(result){
+				alert(result.msg)
+				
+			}
+ 		})
+		$("input,label,select").val("");
+	})
+	
+	//查重
+	$("#stuCard_add_input").change(function(){
+		var stuCard=$("#stuCard_add_input").val();
+		console.log(stuCard)
+		$.ajax({
+			url:"${APP_PATH}/checkStuCard",
+			data:"stuCard="+stuCard,
+			type:"GET",
+			success:function(result){
+				if(result.code==100){
+					$("#stu_save_btn").removeClass("disabled");
+					show_validate_msg("#stuCard_add_input", "error", "");
+					return true;
 				}
-		  		
-				return true;
-		  	}
-		  	//显示校验结果的提示信息  的方法
-			function show_validate_msg(ele,status,msg){
-				//清除当前元素的校验状态
-				$(ele).parent().removeClass("has-success has-error");
-				$(ele).next("span").text("");
-				if("success"==status){
-					$(ele).parent().addClass("has-success");
-					$(ele).next("span").text(msg);
-					}else if("error" == status){
-					$(ele).parent().addClass("has-error");
-					$(ele).next("span").text(msg);
+				if(result.code==200){
+					show_validate_msg("#stuCard_add_input", "error", "账号重复");
+					$("#stu_save_btn").addClass("disabled");
+					return false
 				}
 			}
-			 //校验用户名是否重复，要发ajax请求
-			$("#stuCard_add_input").change(function(){
-				var stuCard=$("#stuCard_add_input").val();
-				$.ajax({
-					url:"${APP_PATH}/checkstuCard",
-					data:"stuCard="+stuCard,
-					type:"GET",
-		  			success:function(result){
-		  				if(result.code==100){
-		  					$("#stu_save_btn").removeClass("disabled");
-							show_validate_msg("#stuCard_add_input", "success", "账号可以用");  				
-		  				}
-		  				if(result.code==200){
-		  					show_validate_msg("#stuCard_add_input", "error", "用户名重复，请换一个");
-		  					$("#stu_save_btn").addClass("disabled");
-		  					return false
-		  				}
-					}
-				})
-			})
-			 //添加员工操作
-		 	$("#stu_save_btn").click(function(){
-		 		
-		 		//用户点击保存按钮校验信息成功后发送ajax请求
-		 		//校验
-		 		if(!validate_add_form()){
-				return false;  		//只有校验成功了才入下继续执行
-		 		}
-		 		
-		 		//("#empAddModel form").serialize(); 直接获取表单里面  name=value
-				$("#stuAddModel").modal('hide');
-		 			$.ajax({
-		 			url:"${APP_PATH }/stu",
-		 			type:"POST",
-		 			data:$("#stuAddModel form").serialize(),
-		 			success:function(result){
-		 				alert(result.msg)
-		 				//插入成功后 关闭模态框
-		 				
-		 			}
-		 		})
-		 		$("input,label,select").val("");
-		 	})
-			 //添加员工操作
-		  	$("#stu_save_btn").click(function(){
-		  		//用户点击保存按钮校验信息成功后发送ajax请求
-		  		//校验
-		  		if(!validate_add_form()){
-					return false;  		//只有校验成功了才入下继续执行
-		  		}
-		  		
-		  		//("#stuAddModel form").serialize(); 直接获取表单里面  name=value
-					$("#stuAddModel").modal('hide');
-		  			$.ajax({
-		  			url:"${APP_PATH }/stu",
-		  			type:"POST",
-		  			data:$("#stuAddModel form").serialize(),
-		  			success:function(result){
-		  				alert(result.msg)
-		  			}
-		  		})
-		  		$("input,label,select").val("");
-		  	})
-		});
+		})
+	})
+	
+	
+	//检查字段
+	function validate_add_form(){
+		//检查两样 stucard stuEmail，
+		var stuCard=$("#stuCard_add_input").val();
+  		var regCard = /(^[a-zA-Z_-]{6}$)/;
+  		var stuEmail=$("#stuEmail_add_input").val();
+  		var regEmail = /^([a-zA-Z0-9_\.-]+)@([a-zA-Z0-9_\.-]+)\.([a-z\.]{2,6})$/
+  		var stuName=$("#stuName_add_input").val()
+  		var stuPwd=$("#stuPwd_add_input").val()
+  		
+  		if(!regEmail.test(stuEmail)|!regCard.test(stuCard)|stuName==''|stuPwd==''){
+  			if(!regCard.test(stuCard)){
+				show_validate_msg("#stuCard_add_input", "error", "账号{stuCard}必须是6位字母");
+  			}
+  			if(!regEmail.test(stuEmail)){
+  				show_validate_msg("#stuEmail_add_input", "error", "邮箱格式不正确");
+  			}
+  			if(stuName==''){
+  				show_validate_msg("#stuName_add_input", "error", "用户名不能为空");
+  			}
+  			if(stuPwd==''){
+  				show_validate_msg("#stuPwd_add_input", "error", "密码不能为空");
+  			}
+			return false;
+		}else{
+			if(regCard.test(stuCard)){
+				show_validate_msg("#stuCard_add_input", "success", "");
+			}
+			if(regEmail.test(stuEmail)){
+				show_validate_msg("#stuEmail_add_input", "success", "");
+			}
+			if(stuName!=''){
+  				show_validate_msg("#stuName_add_input", "success", "");
+  			}
+  			if(stuPwd!=''){
+  				show_validate_msg("#stuPwd_add_input", "success", "");
+  			}
+			return true;
+		}
+	}
+	
+	
+	//这个方法用于把错误消息显示到控制台
+	function show_validate_msg(ele,status,msg){
+		//清除当前元素的校验状态
+		$(ele).parent().removeClass("has-success has-error");
+		$(ele).next("span").text("");
+		$(ele).next("span").empty()
+		if("success"==status){
+			$(ele).parent().addClass("has-success");
+			$(ele).next("span").text(msg);
+		}else if("error" == status){
+			$(ele).parent().addClass("has-error");
+			$(ele).next("span").text(msg);
+		}
+	}
 	</script>
 </html>

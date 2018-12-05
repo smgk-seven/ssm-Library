@@ -1,196 +1,228 @@
 *{
-    		margin: 0;
-    		padding:0;
-    	}
-    	.left_bom a{
-    		color: black;
-    		text-decoration:none
-    	}
-    	.bk{
-    		width: 100%;
-    		height: 1300px;
-    		background-image: url(../images/pic09.jpg);
-			background-size: 100% 100%;
-			
-    		opacity: 0.9;
-    	}
-    	.big{
-    		width: 1100px;
-    		height:100%;
-    		margin: 0px auto;
-    		background: rgba(255,255,255,0.5);
-    	}
-    	.left{
-    		width: 200px;
-    		height:100%;
-    		background:rgba(179,182,216,0.7);
-    		float:left;
-    		
-    	}
-    	.right{
-    		width: 890px;
-    		height:100%;
-    		float:right;
-    		background: rgba(224,220,221,0.7);
-    	}
-    	.left_top{
-    		height: 90px;
-    		border: 0.5px solid black;
-    	}
-    	.left_top div{
-    		width:200px;
-    		height:40px;
-    		margin: 20px auto;
-    		text-align: center;
-    	}
-    	.left_bom{
-    		width:200px;
-    		height:850px;
-    		text-align: center;
-    	}
-    	.left_bom_bt{
-    		height: 800px;
-    		border: 0.5px solid black;
-    		
-    	}
-    	.left_bom_bt .btn{
-    		width:100px;
-    		height:40px;
-    		background:rgba(51,122,183,0.8);
-    		color:white;
-    		margin-top: 10px;
-    		font-size: 18px;
-    		transition: all 0.3s;
-    	}
-    	.left_bom_bt .btn:hover{
-    		width:120px;
-    		height: 47px;
-    		font-size: 19px;
-    	}
-    	.bookBtnUl,.userBtnUl{
-    		width:120px;
-    		height:0px;
-    		margin:0px auto;
-    		overflow: hidden
-    	}
-    	.bookBtnUl li,.userBtnUl li{
-	    	list-style:none;
-	    	color:black;
-	    	font-size:15px;
-	    	margin-left:10px;
-    		height: 30px; 
-    		width:100px;
-    		border: 0.5px solid white;
-    	}
-    	.bookBtnUl li:hover{
-    		background: rgba(200,200,200,0.9);
-    	}
-    	.userBtnUl li:hover{
-    		background: rgba(200,200,200,0.9);
-    	}
-    	.right_first{
-    		height: 60px;
-    		background:rgba(255,255,255,0.6);
-    	}
-    	.right_first div{
-    		width: 170px;
-    		float:right;
-    		height: 30px;
-    		font-size: 18px;
-    		margin-top: 20px;
-    	}
-    	.right_UseAndBookInfo{
-    		height: 220px;
-    		margin-top: 25px;
-    		/* border:1px solid red; */
-    	}
-    	.base_info{
-    		height: 50px;
-    		font-size: 25px;
-    		text-align: center;
-    		line-height: 50px;
-    	}
-    	.user_info,.book_info{
-    		width: 400px;
-    		height: 160px;
-    		
-    	}
-    	.user_info{
-    		float:left;
-    		margin-left:25px;
-    	}
-    	.book_info{
-    		float:right;
-    		margin-right:25px;
-    	}
-    	.user_info_li,.book_info_li{
-    		list-style: none;
-    		float :left;
-    		width: 132px;
-    		height: 150px;
-    		border:0.3px solid black;
-    	}
-    	.user_info_li div,.book_info_li div{
-			text-align:center;
-    	}
-    	.user_info_value,.book_info_value{
-    		font-size: 50px;
-    		margin-top: 18px;
-    	}
-    	.user_info_name,.book_info_name{
-    		font-size: 18px;
-    	}
-    	
-    	
-    	.book,.student{
-    		width: 890px;
-    		height: 370px;
-    		border: 1px solid red;
-    	}
-    	.student{
-    		margin-top: 35px;
-    	}
-    	.book_title,.stu_title{
-    		height: 35px;
-    		/* border:solid 1px red; */
-    	}
-    	.bookAddDiv,.stuAddDiv{
-    		float :right;
-    		margin-right: 100px;
-    	}
-    	.bookTitle,.stuTitle{
-    		width:100px;
-    		font-size: 20px;
-    		color: black;
-    		float:left;
-    		margin-left:10px;
-    	}
-    	.book_content,.stu_content{
-    		height: 320px;
-    	}
-    	.book_fy,.stu_fy{
-    		/* border: 1px solid black; */
-    		height: 40px;
-    		width:890px;
-    		text-align: center;
-    	}
-    	.book_fyInfo,.stu_fyInfo{
-    		width:250px;
-    		float:left;
-    		height: 40px;
-    		/* border: 1px solid black; */
-    		font-size: 18px;
-    		line-height: 35px;
-    		position: relative;
-    	}
-    	.book_fyt,.stu_fyt{
-    		width:400px;
-    		height: 40px;
-    		float:right;
-    		position: absolute;
-    		margin-top: -13px;
-    		margin-left: 490px;
-    	}
-    	.form-group,{
-    		width: 80%;
-    	}
+	margin: 0;
+	padding:0;
+}
+li{
+	cursor:pointer
+}
+ 	.left_bom a{
+ 		color: black;
+ 		text-decoration:none
+ 	}
+ 	.bk{
+ 		width: 100%;
+ 		height: 1300px;
+ 		background-image: url(../images/pic09.jpg);
+		background-size: 100% 100%;
+
+ 		opacity: 0.9;
+ 	}
+ 	.big{
+ 		width: 1100px;
+ 		height:100%;
+ 		margin: 0px auto;
+ 		background: rgba(255,255,255,0.5);
+ 	}
+ 	.left{
+ 		width: 200px;
+ 		height:100%;
+ 		background:rgba(179,182,216,0.7);
+ 		float:left;
+ 		
+ 	}
+ 	.right{
+ 		width: 890px;
+ 		height:100%;
+ 		float:right;
+ 		background: rgba(224,220,221,0.7);
+ 	}
+ 	.left_top{
+ 		height: 90px;
+ 		border: 0.5px solid black;
+ 	}
+ 	.left_top div{
+ 		width:200px;
+ 		height:40px;
+ 		margin: 20px auto;
+ 		text-align: center;
+ 	}
+ 	.left_bom{
+ 		width:200px;
+ 		height:850px;
+ 		text-align: center;
+ 	}
+ 	.left_bom_bt{
+ 		height: 800px;
+ 		border: 0.5px solid black;
+ 		
+ 	}
+ 	.left_bom_bt .btn{
+ 		width:100px;
+ 		height:40px;
+ 		background:rgba(51,122,183,0.8);
+ 		color:white;
+ 		margin-top: 10px;
+ 		font-size: 18px;
+ 		transition: all 0.3s;
+ 	}
+ 	.left_bom_bt .btn:hover{
+ 		width:120px;
+ 		height: 47px;
+ 		font-size: 19px;
+ 	}
+ 	.bookBtnUl,.userBtnUl{
+ 		width:120px;
+ 		height:0px;
+ 		margin:0px auto;
+ 		overflow: hidden
+ 	}
+ 	.bookBtnUl li,.userBtnUl li{
+  	list-style:none;
+  	color:black;
+  	font-size:15px;
+  	margin-left:10px;
+ 		height: 30px; 
+ 		width:100px;
+ 		border: 0.5px solid white;
+ 	}
+ 	.bookBtnUl li:hover{
+ 		background: rgba(200,200,200,0.9);
+ 	}
+ 	.userBtnUl li:hover{
+ 		background: rgba(200,200,200,0.9);
+ 	}
+ 	.right_first{
+ 		height: 60px;
+ 		background:rgba(255,255,255,0.6);
+ 	}
+ 	.right_first div{
+ 		width: 170px;
+ 		float:right;
+ 		height: 30px;
+ 		font-size: 18px;
+ 		margin-top: 20px;
+ 	}
+ 	.right_UseAndBookInfo{
+ 		height: 220px;
+ 		margin-top: 18px;
+ 		/* border:1px solid red; */
+ 	}
+ 	.base_info{
+ 		height: 45px;
+ 		font-size: 25px;
+ 		text-align: center;
+ 		line-height: 50px;
+ 	}
+ 	.user_info,.book_info{
+ 		width: 400px;
+ 		height: 160px;
+ 		
+ 	}
+ 	.user_info{
+ 		float:left;
+ 		margin-left:25px;
+ 	}
+ 	.book_info{
+ 		float:right;
+ 		margin-right:25px;
+ 	}
+ 	.user_info_li,.book_info_li{
+ 		list-style: none;
+ 		float :left;
+ 		width: 132px;
+ 		height: 150px;
+ 		border:0.3px solid black;
+ 	}
+ 	.user_info_li div,.book_info_li div{
+	text-align:center;
+}
+.user_info_value,.book_info_value{
+	font-size: 50px;
+	margin-top: 18px;
+}
+.user_info_name,.book_info_name{
+	font-size: 18px;
+}
+
+.book,.student{
+	width: 890px;
+	height: 380px;
+	border: 1px solid black;
+	margin-top:25px;
+}
+.student{
+	margin-top: 35px;
+}
+.book_title,.stu_title{
+	height: 35px;
+	/* border:solid 1px red; */
+}
+.bookAddDiv,.stuAddDiv{
+	float :right;
+	margin-right: 100px;
+}
+.bookTitle,.stuTitle{
+	width:100px;
+	font-size: 20px;
+	color: black;
+	float:left;
+	margin-left:10px;
+}
+.book_content,.stu_content{
+	height: 320px;
+}
+.book_fy,.stu_fy{
+	/* border: 1px solid black; */
+	height: 40px;
+	width:890px;
+	text-align: center;
+	margin-top:10px;
+}
+.book_fyInfo,.stu_fyInfo{
+	width:250px;
+	float:left;
+	height: 40px;
+	/* border: 1px solid black; */
+	font-size: 16px;
+	line-height: 35px;
+	position: relative;
+	line-height: 60px;
+	color: rgba(50,50,50,0.6);
+	
+}
+.book_fyt,.stu_fyt{
+	width:400px;
+	height: 40px;
+	float:right;
+	position: absolute;
+	margin-top: -13px;
+	margin-left: 490px;
+}
+.form-group,{
+	width: 80%;
+}
+.showStuLBFY{
+	float:left;
+	width:300px;
+	height: 40px;
+	
+	margin-left:0px;
+	margin-top: 0px;
+}
+.showStuLBFY nav{
+	margin-bottom: 0px;
+	height:40px;
+	float:left;
+	
+}
+.showStuLBFY nav ul{
+	line-height: 50px;
+	margin-top: 0px;
+}
+.showStuCloseBT{
+	float:right;
+	
+	width:70px;
+	height: 40px;
+}
+

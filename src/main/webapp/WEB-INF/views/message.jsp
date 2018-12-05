@@ -65,7 +65,6 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
     		transform:rotate(-3deg);
     	}
     </style>
-	
 
   </head>
   
@@ -78,7 +77,7 @@ pageContext.setAttribute("APP_PATH", request.getContextPath());
 		     	全局消息显示 页面<br>
 		     </h1>
 		    <h3 class="LoginH3">
-		    	【${msg.extend.message}】
+		    	【${requestScope.message}】
 		    </h3>
 		    <h3 class="LoginH3_1">
 		    	--》 你可以有以下的操作《--

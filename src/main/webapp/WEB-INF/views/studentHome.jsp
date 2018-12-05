@@ -17,13 +17,16 @@ session.setAttribute("stuId", request.getSession().getAttribute("stuId"));
     <link href="${APP_PATH }/static/css/studentHomeCss.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <link href="../${APP_PATH }/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <script type="text/javascript" src="${APP_PATH }/static/js/jquery-1.12.4.min.js"></script>
-	
+	<style type="text/css">
+		
+	</style>
   </head>
   
   <body>
   	<input type="hidden" value="${sessionScope.stuId}" id="STUID">
+  	<input type="hidden" value="${APP_PATH}" id="APP_PATH">
+  	
     <div class="big">
     	<div class="left">
     		<div class="left_top">
@@ -60,10 +63,10 @@ session.setAttribute("stuId", request.getSession().getAttribute("stuId"));
     		<!-- 右二 -->
     		<div class="right_base_info">
     			<ul>
-    				<li><span>${msg.extend.BookCount}</span><br>Borrowed</li>
-    				<li><span>15</span><br>Book&nbsp;Count</li>
-    				<li><span>20</span><br>be&nbsp;fond&nbsp;of </li>
-    				<li><span>50</span><br>Book&nbsp;Count</li>
+    				<li><span class="leadBookCount"></span><br>Borrowed</li>
+    				<li><span class="leadBookCount"></span><br>Book&nbsp;Count</li>
+    				<li><span class="yiHuan"></span><br>be&nbsp;fond&nbsp;of </li>
+    				<li><span class="daiHuan"></span><br>Book&nbsp;Count</li>
     			</ul>
     		</div>
     		
@@ -101,89 +104,18 @@ session.setAttribute("stuId", request.getSession().getAttribute("stuId"));
 				   </tbody>
 				</table>
     		</div>
-    		
+    		<!-- 学生借书记录分页信息 -->
+    		<div class="lendBookFYDiv">
+    			<div class="LBFYInfo"></div>
+    			<div class="LBFYIT"></div>
+    		</div>
     	</div>
     </div>
     
-    <a href="showBooks">进入商城</a>
   </body>
+  <script type="text/javascript" src="${APP_PATH }/static/js/studentHome.js"></script>
   <script type="text/javascript">
-  	var stuId;
-  	var StuStatus;
-  	$(function(){
-  		getStuInfo();
-  	})
-  	$(".stuDaoHang").click(function(){
-  		return false;
-  	})
-  	var STUID=$("#STUID").val();
-  	function getStuInfo(){
-  		$.ajax({
-  			url:"${APP_PATH}/getStuAllInfo",
-  			data:"STUID="+STUID,
-  			type:"GET",
-  			success:function(result){
-  				addStuInfo(result);
-  				addStuBorrBook(result);
-  			}
-  		})
-  	}
-  	//添加学生信息到表格
-  	function addStuInfo(result){
-  		stuId=result.extend.stuAllInfo.stuId;
-  		StuStatus=result.extend.stuAllInfo.stuStatus
-  		$("#stu_Info_tbody").empty();
-  		var stuSex="";
-  		var stuStatus="";
-  		if(result.extend.stuAllInfo.stuStatus=="0"){stuStatus="良好"}
-  		if(result.extend.stuAllInfo.stuStatus=="1"){stuStatus="差！"}
-  		if(result.extend.stuAllInfo.stuSex=="0"){stuSex="男";}
-  		if(result.extend.stuAllInfo.stuSex=="1"){stuSex="女";}
-  		var stuIdTd=$("<td>"+result.extend.stuAllInfo.stuId+"</td>");
-  		var stuNameTd=$("<td>"+result.extend.stuAllInfo.stuName+"</td>");
-  		var stuSexTd=$("<td>"+stuSex+"</td>");
-  		var stuEmailTd=$("<td>"+result.extend.stuAllInfo.stuEmail+"</td>");
-  		var stuStatusTd=$("<td>"+stuStatus+"</td>");
-  		$("<tr></tr>").append(stuIdTd).append(stuNameTd).append(stuSexTd).append(stuEmailTd).append(stuStatusTd).appendTo("#stu_Info_tbody");
-  	}
-  	//添加学生借书的信息
-  	//stu_BorrBook_tbody
-  	function addStuBorrBook(result){
-  		$("#stu_BorrBook_tbody").empty();
-  		var StuLeadBookInfoS=result.extend.stuAllInfo.lends;
-  		$.each(StuLeadBookInfoS,function(index,item){
-	  		var BookStatus=null;
-	  		var huansuBt=null;
-  			if(item.lendStatus=="0"){
-  				BookStatus="待还";
-  				huansuBt=$("<td class='huanshuBt' id='huanshubtId'>"+'还书'+"</td>");
-  				huansuBt.attr("lendBookId",item.lendId);
-  			}else{
-  				BookStatus="已还";
-  			}
-  			var leadBookNumBt=$("<td>"+item.lendNum+"</td>")
-  			var BookNameBt=$("<td>"+item.book.bookName+"</td>")
-  			var LeadBookTimeBt=$("<td>"+item.leadBookTime+"</td>")
-  			var BookStatusBt=$("<td>"+BookStatus+"</td>")
-  			$("<tr></tr>").append(leadBookNumBt).append(BookNameBt).append(LeadBookTimeBt).append(BookStatusBt).append(huansuBt).appendTo("#stu_BorrBook_tbody");
-  		})
-  	}
-  	$(document).on("click","#huanshubtId",function(){
-  		
-  		if(confirm("是否还书？？")){
-	  		$.ajax({
-	  			url:"${APP_PATH}/returnBook/"+$(this).attr("lendBookId"),
-	  			type:"GET",
-	  			success:function(){
-		  		getStuInfo();
-	  			}
-	  		})
-  		}
-  	})
-  	//利用jq跳转到书城
-  	$("#showBooks").click(function(){
-  		window.location.href = 'showBooks?stuId='+stuId+'&StuStatus='+StuStatus+'';
-  	})
-  	
+  var PATH=$("#APP_PATH").attr("value");
+	  	
   </script>
 </html>

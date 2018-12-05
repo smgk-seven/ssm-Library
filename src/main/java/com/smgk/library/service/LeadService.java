@@ -30,5 +30,9 @@ public class LeadService {
 	public void jieShu(Integer stuId, Integer bookId) {
 		leadMapper.insertSelective(new Lead(null,util.randomNum(), new Date(), "0", stuId, bookId));
 	}
+	public List<Lead> getStuLendByStuId(Integer stuId) {
+		return leadMapper.getStuLeadBookByStuId(stuId);
+		
+	}
 	
 }
